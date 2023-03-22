@@ -1,0 +1,23 @@
+{
+  "name": "simple-toast",
+  "version": "1.0.0",
+  "description": "A simple toast library with custom and default settings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kousik-KA/simple-toast.git"
+  },
+  "keywords": [
+    "toast",
+    "toast-js"
+  ],
+  "author": "Kousik.ui.developer@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kousik-KA/simple-toast/issues"
+  },
+  "homepage": "https://github.com/Kousik-KA/simple-toast#readme"
+}

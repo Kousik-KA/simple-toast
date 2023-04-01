@@ -4,6 +4,7 @@
   "description": "A simple toast library with custom and default settings",
   "main": "index.js",
   "scripts": {
+    "dev": "live-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Kousik-KA/simple-toast/issues"
   },
-  "homepage": "https://github.com/Kousik-KA/simple-toast#readme"
+  "homepage": "https://github.com/Kousik-KA/simple-toast#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
 }

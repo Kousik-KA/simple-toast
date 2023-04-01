@@ -1,15 +1,8 @@
-const DEFAULT_OPTIONS = {
-  position: "top-right",
-  autoClose: 5000,
-  animation: "shrink",
-  onClose: () => {},
-  closeOnClick: true,
-  showCloseButton: true,
-  showProgressBar: true,
-  pauseOnHover: false,
-  type: "default",
-  theme: "light",
-};
+import {
+  getHighestZIndex,
+  createToastContainer,
+  DEFAULT_OPTIONS,
+} from "./helper.js";
 
 class Toast {
   #_options = null;
@@ -21,33 +14,20 @@ class Toast {
   #_bindedRemove = this.remove.bind(this);
 
   constructor(options) {
-    // Create the toast
+    // Add toast to the DOM
     this.#_toast = document.createElement("div");
-    this.#_toast.classList.add("toast");
+    this.#_toast.classList.add("simple__toast--toast");
+    this.#_toast.style.zIndex = getHighestZIndex();
 
-    this.pause = () => {
-      if (this.#_timeoutId) {
-        clearTimeout(this.#_timeoutId);
-        this.#_timeoutId = null;
-      }
-      this.#_isPaused = true;
-    };
-    this.resume = () => {
-      if (this.#_options.autoClose !== false && !this.#_timeoutId) {
-        this.#_timeoutId = setTimeout(() => {
-          this.remove();
-          clearTimeout(this.#_timeoutId);
-        }, this.#_options.autoClose - this.#_timeVisible);
-      }
-      this.#_isPaused = false;
-    };
     this.update(options);
-    this.#_toast.classList.add(`${this.animation}-enter`);
 
+    // Add toast enter animation
+    this.#_toast.classList.add(`${this.animation}-enter`);
     this.#_toast.onanimationend = () => {
       this.#_toast.classList.remove(`${this.animation}-enter`);
     };
 
+    // Add toast cloase icon to the DOM
     const closeIcon = document.createElement("span");
     closeIcon.classList.add("close-icon");
     closeIcon.innerHTML = "&times;";
@@ -55,8 +35,26 @@ class Toast {
     closeIcon.addEventListener("click", this.#_bindedRemove);
   }
 
+  pause = () => {
+    if (this.#_timeoutId) {
+      clearTimeout(this.#_timeoutId);
+      this.#_timeoutId = null;
+    }
+    this.#_isPaused = true;
+  };
+
+  resume = () => {
+    if (this.#_options.autoClose !== false && !this.#_timeoutId) {
+      this.#_timeoutId = setTimeout(() => {
+        this.remove();
+        clearTimeout(this.#_timeoutId);
+      }, this.#_options.autoClose - this.#_timeVisible);
+    }
+    this.#_isPaused = false;
+  };
+
   set position(value) {
-    const selector = `.toast-container[data-position=${value}]`;
+    const selector = `.simple__toast--toast-container[data-position=${value}]`;
 
     const currentToastContainer = this.#_toast.parentElement;
     const toastContainer =
@@ -84,7 +82,6 @@ class Toast {
 
   set closeOnClick(value) {
     this.#_toast.style.cursor = value ? "pointer" : "default";
-    // this.#_toast.classList.toggle("can-close", !value);
     if (value) {
       this.#_toast.addEventListener("click", this.#_bindedRemove);
     } else {
@@ -100,7 +97,6 @@ class Toast {
     this.#_intervalId = setInterval(() => {
       if (!this.#_isPaused) {
         this.#_timeVisible += new Date().getTime() - lastTimeRendered;
-        // console.log(this.#_timeVisible, "+++", this.#_intervalId);
         const percentage = 1 - this.#_timeVisible / this.#_options.autoClose;
         this.#_toast.style.setProperty(
           "--progress",
@@ -127,6 +123,12 @@ class Toast {
   set theme(value) {
     this.#_toast.dataset.theme = value;
   }
+
+  set styleToast(value) {
+    Object.entries(value).forEach(([key, value]) => {
+      this.#_toast.style[key] = value;
+    });
+  }
   update(options) {
     this.#_options = { ...DEFAULT_OPTIONS, ...options };
     Object.entries({ ...DEFAULT_OPTIONS, ...options }).forEach(
@@ -141,7 +143,6 @@ class Toast {
     this.#_toast.classList.add(`${this.animation}-leave`);
 
     this.#_toast.addEventListener("transitionend", () => {
-      console.log(this.#_intervalId, "transitionend");
       clearInterval(this.#_intervalId);
       this.#_toast.remove();
       this.onClose();
@@ -151,7 +152,6 @@ class Toast {
     });
 
     this.#_toast.addEventListener("animationend", () => {
-      console.log(this.#_intervalId, "animationend");
       clearInterval(this.#_intervalId);
       this.#_toast.remove();
       console.log(this.#_intervalId);
@@ -161,14 +161,6 @@ class Toast {
       }
     });
   }
-}
-
-function createToastContainer(position) {
-  const toastContainer = document.createElement("div");
-  toastContainer.classList.add("toast-container");
-  toastContainer.dataset.position = position;
-  document.body.appendChild(toastContainer);
-  return toastContainer;
 }
 
 export default Toast;

@@ -2,7 +2,7 @@
   "name": "simple-toast",
   "version": "1.0.0",
   "description": "A simple toast library with custom and default settings",
-  "main": "index.js",
+  "main": "scripts/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

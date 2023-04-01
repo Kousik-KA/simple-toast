@@ -1,12 +1,8 @@
 # Simple Toast JS
 
----
-
 Simple Toast JS is a lightweight and customizable JavaScript library for creating toast messages in web applications. It can be used with any frontend framework or library, such as React, Angular, and Vue.
 
 ## Installation
-
----
 
 To install Simple Toast JS using npm, run the following command:
 
@@ -15,8 +11,6 @@ npm install simple-toast-js
 ```
 
 ## Usage
-
----
 
 To use Simple Toast JS, import it into your JavaScript file:
 
@@ -31,8 +25,6 @@ import "simple-toast-js/styles/toast.css";
 ```
 
 ## Code Example
-
----
 
 Here's an example of how to use Simple Toast JS:
 
@@ -56,8 +48,6 @@ const showToast = () => {
 
 ## Options
 
----
-
 When creating a toast message, you need to pass an `Options` object with the following keys:
 
 | key             | type              | default     | values                                                                                         |
@@ -75,8 +65,6 @@ When creating a toast message, you need to pass an `Options` object with the fol
 | type            | string            | 'default'   | 'default', 'info', 'success', 'warning', 'error'                                               |
 
 ## Methods
-
----
 
 The following methods are available on the toast object:
 
@@ -108,7 +96,5 @@ The following methods are available on the toast object:
   ```
 
 ## License
-
----
 
 Simple Toast JS is licensed under the MIT License. See the LICENSE file for more information.

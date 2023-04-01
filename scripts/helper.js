@@ -1,10 +1,11 @@
 export const DEFAULT_OPTIONS = {
+  message: "",
   position: "top-right",
   autoClose: 5000,
   animation: "shrink",
   onClose: () => {},
   closeOnClick: true,
-  showCloseButton: true,
+  // showCloseButton: true,
   showProgressBar: true,
   pauseOnHover: false,
   type: "default",

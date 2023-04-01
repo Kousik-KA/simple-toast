@@ -1,5 +1,5 @@
 {
-  "name": "simple-toast",
+  "name": "simple-toast-js",
   "version": "1.0.0",
   "description": "A simple toast library with custom and default settings",
   "main": "scripts/index.js",
